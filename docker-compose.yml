@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: sales_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: sales_ai
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    container_name: sales_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
